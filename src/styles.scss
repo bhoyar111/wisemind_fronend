@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// for toes message
+.snackbar-success {
+  background-color: rgba(24, 206, 15, 0.8);
+  color: #ffffff;
+}
+
+.snackbar-info {
+  background-color: rgba(44, 168, 255, 0.8);
+  color: #ffffff;
+}
+
+.snackbar-warning {
+  background-color: rgba(255, 230, 0, 0.8);
+  color: #ffffff;
+}
+
+.snackbar-danger {
+  background-color: rgba(255, 0, 0, 0.8);
+  color: #ffffff;
+}
+
+// for Listing page master
+.tg {
+  border-collapse: collapse;
+  border-color: #9abad9;
+  border-spacing: 0;
+}
+.tg td {
+  background-color: #fff;
+  border-color: #9abad9;
+  border-style: solid;
+  color: #444;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+  padding: 4px 8px;
+  word-break: normal;
+}
+.tg th {
+  background-color: #125dad;
+  border-color: #9abad9;
+  border-style: solid;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  overflow: hidden;
+  padding: 4px 8px;
+  word-break: normal;
+}
+.tg .tg-fymr {
+  border-color: inherit;
+  font-weight: bold;
+  text-align: left;
+  vertical-align: top;
+}
+.tg .tg-0pky {
+  border-color: inherit;
+  text-align: left;
+  vertical-align: top;
+}
+// for heading listing page
+.heading-adding-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// For Mark ollot listing
+.student-obtain-mark {
+  width: 40%;
+}
+
+.sr-no {
+  width: 4%;
+}
+
+.obtain-marks-in {
+  width: 15%;
+}
+
+.Outoff-marks-in {
+  width: 10%;
+}
+
+.mark-button-listing {
+  float: right;
+}
+
+.filter-field {
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.mark-alloc-td > tr > td {
+  padding: 0.75rem;
+}
+
+.mark-alloc-am > tr > td {
+  padding: 0.95rem;
+}
+
+// for add edit input filed color changes
+.firstLetterCaps{
+  color: black!important;
+}
+
+.materialTableHeader{
+  min-width: 0 !important;
+}
+
+.allot-add-but {
+  padding-top: 30px;
+}
+
+.mark-allotment {
+  margin-left: 10px !important;
+}
+
+.mark-allotment-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

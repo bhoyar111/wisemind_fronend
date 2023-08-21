@@ -1,0 +1,29 @@
+.login-background-img {
+  background-image: url(/assets/images/pages/back-school.jpg);
+}
+
+.log-form {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  opacity: 0.7;
+  border-radius: 5px;
+}
+
+.log-form-text {
+  opacity: 1.8;
+  color: #000;
+}
+
+.login-log {
+  display: flex;
+  justify-content: center;
+}
+.login-logo-front {
+  width: 100%;
+  opacity: 0.9;
+}
+
+.d-none {
+    display: flex !important;
+}
+

@@ -1,0 +1,27 @@
+// for Sidebar logo
+.sidebar-logo {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+// for responsive
+@media screen and (max-width: 766px) {
+.sidebar-logo {
+  width: 30% !important;
+  align-items: center;
+  justify-content: center;
+  
+}
+}
+
+@media screen and (max-width: 1114px) {
+.sidebar-logo {
+  width: 67%;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1.5rem;
+  
+}
+}

@@ -1,0 +1,573 @@
+<section class="content">
+  <div class="content-block">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="table-responsive">
+              <!-- header section -->
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-12 heading-adding-button">
+                    <ul class="header-buttons-left ml-0">
+                      <li class="dropdown">
+                        <h2><strong>School</strong></h2>
+                      </li>
+                    </ul>
+                    <ul class="header-buttons">
+                      <li class="adding-button">
+                        <div class="export-button m-l-10" matTooltip="ADD">
+                          <button
+                            mat-mini-fab
+                            color="primary"
+                            (click)="addRow(addRecord)">
+                            <mat-icon class="col-white">add</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- List records -->
+              <div>
+                <table class="tg w-100">
+                  <thead>
+                    <tr>
+                      <th class="tg-fymr">Sr.</th>
+                      <th class="tg-fymr">School Name</th>
+                      <th class="tg-fymr">Address</th>
+                      <th class="tg-fymr">City</th>
+                      <th class="tg-fymr">Affilition No</th>
+                      <th class="tg-fymr">Email</th>
+                      <th class="tg-fymr">Mobile</th>
+                      <th class="tg-fymr">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of data; let i = index">
+                      <td class="tg-0pky">{{ i + 1 }}</td>
+                      <td class="tg-0pky">{{ item.school_name }}</td>
+                      <td class="tg-0pky">{{ item.address }}</td>
+                      <td class="tg-0pky">{{ item.city_name }}</td>
+                      <td class="tg-0pky">{{ item.affilition_no }}</td>
+                      <td class="tg-0pky">{{ item.email_id }}</td>
+                      <td class="tg-0pky">{{ item.mobile_no }}</td>
+                      <td
+                        class="tg-0pky"
+                        style="display: flex; align-items: center"
+                      >
+                        <button mat-icon-button class="tbl-action-btn">
+                          <app-feather-icons
+                            [icon]="'edit'"
+                            [class]="'tbl-fav-edit'"
+                            (click)="editRow(item, i, editRecord)">
+                          </app-feather-icons>
+                        </button>
+                        <button mat-icon-button class="tbl-action-btn">
+                          <app-feather-icons
+                            [icon]="'trash-2'"
+                            [class]="'tbl-fav-delete'"
+                            (click)="deleteRow(item)">
+                          </app-feather-icons>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Add Record -->
+              <ng-template #addRecord let-modal>
+                <div class="modal-header editRowModal">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    <div class="modal-header">
+                      <div class="modal-about">
+                        <div class="font-weight-bold p-t-10 font-17">
+                          Add School
+                        </div>
+                      </div>
+                    </div>
+                  </h4>
+                  <button
+                    type="button"
+                    mat-mini-fab
+                    class="close"
+                    aria-label="Close"
+                    (click)="modal.dismiss()">
+                    <span aria-hidden="true"><i class="material-icons">close</i></span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form
+                    class="register-form"
+                    [formGroup]="addschool"
+                    (ngSubmit)="onAddRowSave(addschool)">
+                    <div class="input-field col s12 d-none">
+                      <input
+                        formControlName="id"
+                        class="form-control"
+                        type="hidden"/>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>School Name</mat-label>
+                          <input
+                            matInput
+                            formControlName="school_name"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> School name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Email Id</mat-label>
+                          <input
+                            matInput
+                            formControlName="email_id"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error
+                            *ngIf="f.email_id.errors && f.email_id.errors.email">
+                            Invalid email format
+                          </mat-error>
+                          <mat-error> Email is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Mobile No</mat-label>
+                          <input
+                            matInput
+                            formControlName="mobile_no"
+                            required
+                            class="firstLetterCaps"
+                            [pattern]="numericPattern"
+                            [minlength]="10"
+                            [maxlength]="10"/>
+                          <mat-error *ngIf="f.mobile_no.errors?.required"
+                            >Mobile number is required</mat-error>
+                          <mat-error *ngIf="f.mobile_no.errors?.pattern">
+                            Please enter only numbers
+                          </mat-error>
+                          <mat-error
+                            *ngIf="f.mobile_no.errors?.minlength || f.mobile_no.errors?.maxlength">
+                            Enter 10 Digit numbers
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Affiliation No</mat-label>
+                          <input
+                            matInput
+                            formControlName="affilition_no"
+                            required
+                            class="firstLetterCaps"
+                            pattern="^[0-9]*$"
+                            minlength="1"
+                            maxlength="10"/>
+                          <mat-error>
+                            <span *ngIf="f.affilition_no.errors?.required">
+                              Affiliation No is required
+                            </span>
+                            <span *ngIf="f.affilition_no.errors?.pattern">
+                              Affiliation No must be a number
+                            </span>
+                            <span *ngIf="f.affilition_no.errors?.minlength">
+                              Affiliation No must be at least 1 digit
+                            </span>
+                            <span *ngIf="f.affilition_no.errors?.maxlength">
+                              Affiliation No cannot exceed 10 digits
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Address</mat-label>
+                          <input
+                            matInput
+                            formControlName="address"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> Address name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>City Name</mat-label>
+                          <input
+                            matInput
+                            formControlName="city_name"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> City name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>District</mat-label>
+                          <input
+                            matInput
+                            formControlName="district_name"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> District name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>State Name</mat-label>
+                          <input
+                            matInput
+                            formControlName="state"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> State name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Pincode</mat-label>
+                          <input
+                            matInput
+                            formControlName="pin_code"
+                            required
+                            class="firstLetterCaps"
+                            pattern="^[0-9]*$"
+                            minlength="6"
+                            maxlength="6"/>
+                          <mat-error>
+                            <span *ngIf="f.pin_code.errors?.required">
+                              Pincode is required
+                            </span>
+                            <span *ngIf="f.pin_code.errors?.pattern">
+                              Pincode must be a number
+                              </span>
+                            <span *ngIf="f.pin_code.errors?.minlength">
+                              Pincode must be exactly 6 digits
+                            </span>
+                            <span *ngIf="f.pin_code.errors?.maxlength">
+                              Pincode must be exactly 6 digits
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field
+                          class="example-full-width mb-3"
+                          appearance="outline">
+                          <mat-label>Role</mat-label>
+                          <mat-select formControlName="role_id" required>
+                            <mat-option
+                              *ngFor="let role of dataRoleDS"
+                              [value]="role.id">
+                              {{ role.role_name }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Password</mat-label>
+                          <input
+                            matInput
+                            formControlName="password"
+                            type="password"
+                            required
+                            class="firstLetterCaps"/>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <button
+                          class="btn-space"
+                          [disabled]="!addschool.valid"
+                          mat-raised-button
+                          color="primary">
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          mat-button
+                          data-dismiss="modal"
+                          (click)="modal.dismiss('Cross click')">
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+              <!-- Edit Record -->
+              <ng-template #editRecord let-modal>
+                <div class="modal-header editRowModal">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    <div class="modal-header">
+                      <div class="modal-about">
+                        <div class="font-weight-bold p-t-10 font-17">
+                          Edit School
+                        </div>
+                      </div>
+                    </div>
+                  </h4>
+                  <button
+                    type="button"
+                    mat-mini-fab
+                    class="close"
+                    aria-label="Close"
+                    (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true"><i class="material-icons">close</i></span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form
+                    class="register-form"
+                    [formGroup]="editForm"
+                    (ngSubmit)="onEditSave(editForm)">
+                    <div class="input-field col s12 d-none">
+                      <input
+                        formControlName="id"
+                        class="form-control"
+                        type="hidden"/>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>School Name</mat-label>
+                          <input
+                            matInput
+                            formControlName="school_name"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> School name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Email Id</mat-label>
+                          <input
+                            matInput
+                            formControlName="email_id"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error
+                            *ngIf="f.email_id.errors && f.email_id.errors.email">
+                            Invalid email format
+                          </mat-error>
+                          <mat-error> Email is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Mobile No</mat-label>
+                          <input
+                            matInput
+                            formControlName="mobile_no"
+                            required
+                            class="firstLetterCaps"
+                            [pattern]="numericPattern"
+                            [minlength]="10"
+                            [maxlength]="10"/>
+                          <mat-error *ngIf="f.mobile_no.errors?.required">
+                            Mobile number is required
+                          </mat-error>
+                          <mat-error *ngIf="f.mobile_no.errors?.pattern">
+                            Please enter only numbers
+                          </mat-error>
+                          <mat-error
+                            *ngIf="f.mobile_no.errors?.minlength || f.mobile_no.errors?.maxlength">
+                            Enter 10 Digit numbers
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Affiliation No</mat-label>
+                          <input
+                            matInput
+                            formControlName="affilition_no"
+                            required
+                            class="firstLetterCaps"
+                            pattern="^[0-9]*$"
+                            minlength="1"
+                            maxlength="10"/>
+                          <mat-error>
+                            <span *ngIf="f.affilition_no.errors?.required">
+                              Affiliation No is required
+                            </span>
+                            <span *ngIf="f.affilition_no.errors?.pattern">
+                              Affiliation No must be a number
+                            </span>
+                            <span *ngIf="f.affilition_no.errors?.minlength">
+                              Affiliation No must be at least 1 digit
+                            </span>
+                            <span *ngIf="f.affilition_no.errors?.maxlength">
+                              Affiliation No cannot exceed 10 digits
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Address</mat-label>
+                          <input
+                            matInput
+                            formControlName="address"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> Address name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>City Name</mat-label>
+                          <input
+                            matInput
+                            formControlName="city_name"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> City name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>District</mat-label>
+                          <input
+                            matInput
+                            formControlName="district_name"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> District name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>State Name</mat-label>
+                          <input
+                            matInput
+                            formControlName="state"
+                            required
+                            class="firstLetterCaps"/>
+                          <mat-error> State name is required </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Pincode</mat-label>
+                          <input
+                            matInput
+                            formControlName="pin_code"
+                            required
+                            class="firstLetterCaps"
+                            pattern="^[0-9]*$"
+                            minlength="6"
+                            maxlength="6"/>
+                          <mat-error>
+                            <span *ngIf="f.pin_code.errors?.required">
+                              Pincode is required
+                            </span>
+                            <span *ngIf="f.pin_code.errors?.pattern">
+                              Pincode must be a number
+                            </span>
+                            <span *ngIf="f.pin_code.errors?.minlength">
+                              Pincode must be exactly 6 digits
+                            </span>
+                            <span *ngIf="f.pin_code.errors?.maxlength">
+                              Pincode must be exactly 6 digits
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field
+                          class="example-full-width mb-3"
+                          appearance="outline">
+                          <mat-label>Role</mat-label>
+                          <mat-select formControlName="role_id" required>
+                            <mat-option
+                              *ngFor="let role of dataRoleDS"
+                              [value]="role.id">
+                              {{ role.role_name }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="outline">
+                          <mat-label>Password</mat-label>
+                          <input
+                            matInput
+                            formControlName="password"
+                            type="password"
+                            required
+                            class="firstLetterCaps"/>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <div class="button-demo">
+                        <button mat-raised-button type="submit" color="primary">
+                          Edit
+                        </button>
+                        <button
+                          mat-button
+                          type="button"
+                          (click)="modal.close()">
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
