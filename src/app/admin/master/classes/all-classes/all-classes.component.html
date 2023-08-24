@@ -14,6 +14,12 @@
                         <h2><strong>Class</strong></h2>
                       </li>
                     </ul>
+                    <div>
+                      <input type="file" (change)="handleFileDrop($event.target.files)" />
+                      <button (click)="onUploadRowSave(formData)"
+                        style="height: auto;width: 80px; color: black; font-weight: bold; padding: 5px; border-radius: 10px;"
+                        [disabled]="!file">Upload</button>
+                    </div>
                     <ul class="header-buttons">
                       <li class="adding-button">
                         <div class="export-button m-l-10" matTooltip="ADD">

@@ -20,6 +20,10 @@ export class ClassService {
         return this.http.post<any>(`${authApi.baseURL}/class-add`, data);
     }
 
+    uploadData(data: any) {
+      return this.http.post<any>(`${authApi.baseURL}/class-add`, data);
+    }
+
     getOneData(id: number) {
         return this.http.get(`${authApi.baseURL}/class-get/${id}`);
     }

@@ -10,6 +10,7 @@ import {
   Validators,
 } from "@angular/forms";
 import Swal from "sweetalert2";
+import * as XLSX from 'xlsx';
 
 import { ClassService } from "./class.service";
 @Component({
@@ -26,6 +27,9 @@ export class AllClassesComponent implements OnInit {
   dataPipe: any;
   data: any[];
   form: FormGroup;
+  formData: FormGroup;
+  file: File | null = null;
+  sheetData: any[] = [];
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -39,6 +43,11 @@ export class AllClassesComponent implements OnInit {
   ngOnInit(): void {
     this.fetchDataFromApis();
     this.addclass = this.fb.group({
+      id: [""],
+      class_name: ["", Validators.required],
+    });
+
+    this.formData = this.fb.group({
       id: [""],
       class_name: ["", Validators.required],
     });
@@ -71,6 +80,79 @@ export class AllClassesComponent implements OnInit {
     };
 
     this.service.addData(this.field).subscribe(
+      (response) => {
+        if (response.status !== "") {
+          this.showNotification(
+            "snackbar-success",
+            "Added Successfully!",
+            "top",
+            "center"
+          );
+          window.location.reload();
+          form.reset();
+        } else {
+          this.showNotification(
+            "snackbar-error",
+            "Addition Failed!",
+            "top",
+            "center"
+          );
+        }
+      },
+      (error) => {
+        console.error("Class Addition Failed:", error);
+        this.showNotification(
+          "snackbar-error",
+          "Addition Failed!",
+          "top",
+          "center"
+        );
+      }
+    );
+    this.modalService.dismissAll();
+  }
+
+  handleFileDrop(files: FileList): void {
+    if (files.length > 0) {
+      const uploadedFile = files[0];
+      const fileReader = new FileReader();
+
+      fileReader.onload = (event: any) => {
+        const arrayBuffer = event.target.result;
+        const data = new Uint8Array(arrayBuffer);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        this.sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+        console.log('Data from XLSX file:', this.sheetData);
+
+        this.file = uploadedFile;
+      };
+      fileReader.readAsArrayBuffer(uploadedFile);
+    }
+  }
+
+  handleFileUpload(): void {
+    if (this.file && this.sheetData.length > 0) {
+      this.sheetData.forEach((rowData) => {
+        console.log("rowData", rowData);
+
+        // const formData = new FormData();
+        // // formData.append('file', this.file, this.file.name);
+        // formData.append('sheetData', JSON.stringify(rowData));
+        // console.log("formData", rowData);
+
+
+      });
+    }
+  }
+
+  onUploadRowSave(form: UntypedFormGroup) {
+    this.field = {
+      class_name: form.value.class_name,
+    };
+
+    this.service.uploadData(this.field).subscribe(
       (response) => {
         if (response.status !== "") {
           this.showNotification(

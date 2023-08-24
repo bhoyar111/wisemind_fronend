@@ -31,6 +31,7 @@ export class AllStaffAllotmentComponent implements OnInit {
   dataLevelDS: any[];
   filteredLevels: any[];
   dataSubjectDS: any[];
+  filteredSubjects: any[];
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -72,13 +73,14 @@ export class AllStaffAllotmentComponent implements OnInit {
   onClassSelectionChange() {
     const classId = parseInt(this.addStaff.value.class_id);
     if (classId !== 0) {
-      this.filteredLevels = this.dataLevelDS.filter(
-        (level) => level.class_id === classId
-      );
+      this.filteredLevels = this.dataLevelDS.filter((level) => level.class_id === classId);
+      this.filteredSubjects = this.dataSubjectDS.filter((subject) => subject.class_id === classId);
     } else {
+      this.filteredLevels = [];
       this.filteredLevels = [];
     }
     this.addStaff.patchValue({ level_id: "" });
+    this.addStaff.patchValue({ subject_id: "" });
   }
 
   fetchDataFromApis() {
