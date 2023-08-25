@@ -16,6 +16,7 @@ import { dataGenders } from "../../../../utils/constant";
 })
 export class AllStudentsComponent implements OnInit {
   selectedRowData: selectRowInterface;
+  shouldApplyStaffHideClass: boolean = false;
   register: UntypedFormGroup;
   addstudent: UntypedFormGroup;
   editForm: UntypedFormGroup;
@@ -25,6 +26,7 @@ export class AllStudentsComponent implements OnInit {
   form: FormGroup;
   dataDS: any[];
   dataSectionDS: any[];
+  filteredStudent: any[];
   dataGenders = dataGenders;
 
   constructor(
@@ -80,6 +82,18 @@ export class AllStudentsComponent implements OnInit {
       }
     );
   }
+
+  onClassSelectionChange() {
+    this.shouldApplyStaffHideClass = true;
+    const ClassId = parseInt(this.addstudent.value.class_id);
+    if (ClassId !== 0) {
+        this.filteredStudent = this.data.filter(student => student.class_id === ClassId);
+        console.log(this.filteredStudent, 'jjjsjjs');
+    } else {
+        this.filteredStudent = [];
+    }
+    this.addstudent.patchValue({ first_name: "", last_name: "" });
+}
 
   addRow(content) {
     this.modalService.open(content, { ariaLabelledBy: "modal-basic-title" });

@@ -142,19 +142,19 @@
                           </mat-select>
                         </mat-form-field>
                       </div>
-                      <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <mat-form-field
                           class="example-full-width mb-3"
                           appearance="outline">
                           <mat-label>Subject</mat-label>
                           <mat-select formControlName="subject_id" required>
-                            <mat-option *ngFor="let subject of dataSubjectDS" [value]="subject.id">
+                            <mat-option *ngFor="let subject of filteredSubjects" [value]="subject.id">
                               {{ subject.subject_name }}
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
-                      </div> -->
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      </div>
+                      <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <mat-form-field class="example-full-width mb-3" appearance="outline">
                           <mat-label>Subjects</mat-label>
                           <mat-select formControlName="subject_id" multiple required>
@@ -163,7 +163,7 @@
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
-                      </div>
+                      </div> -->
                     </div>
                      <div class="row">
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">

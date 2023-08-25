@@ -14,6 +14,20 @@
                         <h2><strong>Students</strong></h2>
                       </li>
                     </ul>
+                    <form class="register-form" [formGroup]="addstudent">
+                      <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                <mat-label>Class</mat-label>
+                                <mat-select formControlName="class_id" (selectionChange)="onClassSelectionChange()">
+                                  <mat-option *ngFor="let class of dataDS" [value]="class.id">
+                                    {{ class.class_name }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                    </form>
                     <ul class="header-buttons">
                       <li class="adding-button">
                         <div class="export-button m-l-10" matTooltip="ADD">
@@ -43,20 +57,46 @@
                       <th class="tg-fymr">Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody [class.staff-hide]="shouldApplyStaffHideClass">
                     <tr *ngFor="let item of data; let i = index">
                       <td class="tg-0pky">{{ i + 1 }}</td>
                       <td class="tg-0pky">
-                        {{ item.first_name }} {{ item.middle_name }}
-                        {{ item.last_name }}
+                        {{ item.first_name }} {{ item.middle_name }} {{ item.last_name }}
                       </td>
                       <td class="tg-0pky">{{ item.roll_no }}</td>
                       <td class="tg-0pky">{{ item.class.class_name }}</td>
                       <td class="tg-0pky">{{ item.section.section_name }}</td>
                       <td class="tg-0pky">{{ item.mobile_no }}</td>
-                      <td
-                        class="tg-0pky"
-                        style="display: flex; align-items: center">
+                      <td class="tg-0pky" style="display: flex; align-items: center">
+                        <button mat-icon-button class="tbl-action-btn">
+                          <app-feather-icons
+                            [icon]="'edit'"
+                            [class]="'tbl-fav-edit'"
+                            (click)="editRow(item, i, editRecord)">
+                          </app-feather-icons>
+                        </button>
+                        <button mat-icon-button class="tbl-action-btn">
+                          <app-feather-icons
+                            [icon]="'trash-2'"
+                            [class]="'tbl-fav-delete'"
+                            (click)="deleteRow(item)">
+                          </app-feather-icons
+                          >
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr *ngFor="let item of filteredStudent; let i = index">
+                      <td class="tg-0pky">{{ i + 1 }}</td>
+                      <td class="tg-0pky">
+                        {{ item.first_name }} . {{ item.middle_name }} {{ item.last_name }}
+                      </td>
+                      <td class="tg-0pky">{{ item.roll_no }}</td>
+                      <td class="tg-0pky">{{ item.class.class_name }}</td>
+                      <td class="tg-0pky">{{ item.section.section_name }}</td>
+                      <td class="tg-0pky">{{ item.mobile_no }}</td>
+                      <td class="tg-0pky" style="display: flex; align-items: center">
                         <button mat-icon-button class="tbl-action-btn">
                           <app-feather-icons
                             [icon]="'edit'"

@@ -13,6 +13,7 @@ import { StaffService } from "./staff.service";
 })
 export class AllStaffComponent implements OnInit {
     selectedRowData: selectRowInterface;
+    shouldApplyStaffHideClass: boolean = false;
     register: UntypedFormGroup;
     addstaff: UntypedFormGroup;
     editForm: UntypedFormGroup;
@@ -79,6 +80,7 @@ export class AllStaffComponent implements OnInit {
     }
 
     onClassSelectionChange() {
+      this.shouldApplyStaffHideClass = true;
       const SchoolId = parseInt(this.addstaff.value.school_id);
       if (SchoolId !== 0) {
           this.filteredStaff = this.data.filter(staff => staff.school_id === SchoolId);

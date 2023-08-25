@@ -19,7 +19,7 @@
                                               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                                                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                                                       <mat-label>School</mat-label>
-                                                      <mat-select formControlName="school_id"  (selectionChange)="onClassSelectionChange()">
+                                                      <mat-select formControlName="school_id" (selectionChange)="onClassSelectionChange()">
                                                         <mat-option *ngFor="let school of dataSchoolDS" [value]="school.id">
                                                             {{ school.school_name }}
                                                         </mat-option>
@@ -54,6 +54,24 @@
                                         <th class="tg-fymr">Action</th>
                                         </tr>
                                     </thead>
+                                    <tbody [class.staff-hide]="shouldApplyStaffHideClass">
+                                      <tr *ngFor="let item of data; let i = index">
+                                          <td class="tg-0pky">{{ i+1 }}</td>
+                                          <td class="tg-0pky"> {{ item.first_name }} {{ item.last_name }}</td>
+                                          <td class="tg-0pky">{{ item.mobile_no }}</td>
+                                          <td class="tg-0pky">{{ item.email_id }}</td>
+                                          <td class="tg-0pky">{{ item.designation.designation_name }}</td>
+                                          <td class="tg-0pky">{{ item.school.school_name }}</td>
+                                          <td class="tg-0pky" style="display: flex; align-items: center">
+                                              <button mat-icon-button class="tbl-action-btn">
+                                                  <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'" (click)="editRow(item, i, editRecord)"></app-feather-icons>
+                                              </button>
+                                              <button mat-icon-button class="tbl-action-btn">
+                                                  <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'" (click)="deleteRow(item)"></app-feather-icons>
+                                              </button>
+                                          </td>
+                                      </tr>
+                                  </tbody>
                                     <tbody>
                                         <tr *ngFor="let item of filteredStaff; let i = index">
                                             <td class="tg-0pky">{{ i+1 }}</td>
