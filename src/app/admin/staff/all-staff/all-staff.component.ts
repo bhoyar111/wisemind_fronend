@@ -80,16 +80,16 @@ export class AllStaffComponent implements OnInit {
     }
 
     onClassSelectionChange() {
-      this.shouldApplyStaffHideClass = true;
-      const SchoolId = parseInt(this.addstaff.value.school_id);
-      if (SchoolId !== 0) {
-          this.filteredStaff = this.data.filter(staff => staff.school_id === SchoolId);
+        this.shouldApplyStaffHideClass = true;
+        const SchoolId = parseInt(this.addstaff.value.school_id);
+        if (SchoolId !== 0) {
+            this.filteredStaff = this.data.filter(staff => staff.school_id === SchoolId);
 
-      } else {
-          this.filteredStaff = [];
-      }
-      this.addstaff.patchValue({ first_name: "", last_name: "" });
-  }
+        } else {
+            this.filteredStaff = [];
+        }
+        this.addstaff.patchValue({ first_name: "", last_name: "" });
+    }
 
     addRow(content) {
         this.modalService.open(content, { ariaLabelledBy: "modal-basic-title" });

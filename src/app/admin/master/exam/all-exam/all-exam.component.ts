@@ -16,7 +16,7 @@ import { ExamService } from "./exam.service"
 export class AllExamComponent implements OnInit {
   selectedRowData: selectRowInterface;
   register: UntypedFormGroup;
-  addexam: UntypedFormGroup;
+  addForm: UntypedFormGroup;
   editForm: UntypedFormGroup;
   field: any;
   dataPipe: any;
@@ -40,7 +40,7 @@ export class AllExamComponent implements OnInit {
   ngOnInit(): void {
     this.relativeDataFromDS();
     this.fetchDataFromApis();
-    this.addexam = this.fb.group({
+    this.addForm = this.fb.group({
       id: [""],
       exam_name: ["", Validators.required],
       class_id: ["", Validators.required],
@@ -67,19 +67,16 @@ export class AllExamComponent implements OnInit {
   }
 
   onClassSelectionChange() {
-    const classId = parseInt(this.addexam.value.class_id);
+    const classId = parseInt(this.addForm.value.class_id);
     if (classId !== 0) {
       this.filteredLevels = this.dataLevelDS.filter(level => level.class_id === classId);
       this.filteredSubject = this.dataSubjectDS.filter(subject => subject.class_id === classId);
-      console.log( this.filteredLevels, 'filteredLevels');
-      console.log( this.filteredSubject, 'filteredSubject');
-
     } else {
       this.filteredLevels = [];
       this.filteredSubject = [];
     }
-    this.addexam.patchValue({ level_id: "" });
-    this.addexam.patchValue({ subject_id: "" });
+    this.addForm.patchValue({ level_id: "" });
+    this.addForm.patchValue({ subject_id: "" });
   }
 
   fetchDataFromApis() {

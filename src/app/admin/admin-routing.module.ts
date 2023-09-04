@@ -30,16 +30,12 @@ const routes: Routes = [
   {
     path: "staff-allotment",
     loadChildren: () =>
-      import("./staff-allotment/staff-allotment.module").then(
-        (m) => m.StaffAllotmentModule
-      ),
+    import("./staff-allotment/staff-allotment.module").then((m) => m.StaffAllotmentModule),
   },
   {
     path: "mark-allotment",
     loadChildren: () =>
-      import("./mark-allotment/mark-allotment.module").then(
-        (m) => m.MarkAllotmentModule
-      ),
+      import("./mark-allotment/mark-allotment.module").then((m) => m.MarkAllotmentModule),
   },
   {
     path: "mark-allot",

@@ -97,8 +97,8 @@
                 <div class="modal-body">
                   <form
                     class="register-form"
-                    [formGroup]="addexam"
-                    (ngSubmit)="onAddRowSave(addexam)">
+                    [formGroup]="addForm"
+                    (ngSubmit)="onAddRowSave(addForm)">
                     <div class="input-field col s12 d-none">
                       <input
                         formControlName="id"
@@ -199,7 +199,7 @@
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <button
                           class="btn-space"
-                          [disabled]="!addexam.valid"
+                          [disabled]="!addForm.valid"
                           mat-raised-button
                           color="primary">
                           Save

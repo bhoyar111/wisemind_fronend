@@ -9,18 +9,15 @@ const routes: Routes = [
   },
   {
     path: "level",
-    loadChildren: () =>
-      import("./level/level.module").then((m) => m.LevelModule),
+    loadChildren: () => import("./level/level.module").then((m) => m.LevelModule),
   },
   {
     path: "section",
-    loadChildren: () =>
-      import("./section/section.module").then((m) => m.SectionModule),
+    loadChildren: () => import("./section/section.module").then((m) => m.SectionModule),
   },
   {
     path: "subject",
-    loadChildren: () =>
-      import("./subject/subject.module").then((m) => m.SubjectModule),
+    loadChildren: () => import("./subject/subject.module").then((m) => m.SubjectModule),
   },
   {
     path: "exam",
@@ -28,10 +25,7 @@ const routes: Routes = [
   },
   {
     path: "designation",
-    loadChildren: () =>
-      import("./designation/designation.module").then(
-        (m) => m.DesignationModule
-      ),
+    loadChildren: () => import("./designation/designation.module").then((m) => m.DesignationModule),
   },
   {
     path: "role",
@@ -40,6 +34,14 @@ const routes: Routes = [
   {
     path: "mark",
     loadChildren: () => import("./mark/mark.module").then((m) => m.MarkModule),
+  },
+  {
+    path: "questions",
+    loadChildren: () => import("./questions/questions.module").then((m) => m.QuestionsModule),
+  },
+  {
+    path: "game",
+    loadChildren: () => import("./game/game.module").then((m) => m.GameModule),
   },
 ];
 
