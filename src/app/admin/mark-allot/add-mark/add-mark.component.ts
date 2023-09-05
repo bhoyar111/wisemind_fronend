@@ -84,6 +84,10 @@ export class AddMarkComponent implements OnInit {
         this.addForm.patchValue({ student_id: "" });
     }
 
+    onSubjectSelectionChange() {
+
+    }
+
     fetchDataFromApis() {
         this.service.getData().subscribe(
         (response: any) => {

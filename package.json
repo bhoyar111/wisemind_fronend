@@ -61,6 +61,7 @@
     "ngx-color-picker": "^12.0.1",
     "ngx-dropzone-wrapper": "^11.0.0",
     "ngx-echarts": "^14.0.0",
+    "ngx-export-as": "^1.16.0",
     "ngx-gauge": "^5.0.0",
     "ngx-mask": "^14.0.3",
     "ngx-perfect-scrollbar": "^10.1.1",

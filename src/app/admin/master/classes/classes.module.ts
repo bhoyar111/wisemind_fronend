@@ -20,6 +20,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { ExportAsModule } from 'ngx-export-as';
 
 import { ComponentsModule } from "../../../../app/shared/components/components.module";
 import { SharedModule } from "../../../../app/shared/shared.module";
@@ -34,6 +35,7 @@ import { AllClassesComponent } from "./all-classes/all-classes.component";
     CommonModule,
     ClassRoutingModule,
     FormsModule,
+    ExportAsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,

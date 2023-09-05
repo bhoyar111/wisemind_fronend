@@ -33,11 +33,6 @@ const routes: Routes = [
     import("./staff-allotment/staff-allotment.module").then((m) => m.StaffAllotmentModule),
   },
   {
-    path: "mark-allotment",
-    loadChildren: () =>
-      import("./mark-allotment/mark-allotment.module").then((m) => m.MarkAllotmentModule),
-  },
-  {
     path: "mark-allot",
     loadChildren: () =>
       import("./mark-allot/mark-allot.module").then((m) => m.MarkAllotModule),
