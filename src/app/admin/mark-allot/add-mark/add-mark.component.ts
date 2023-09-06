@@ -59,6 +59,10 @@ export class AddMarkComponent implements OnInit {
     this.router.navigate(["/admin/mark-allot/mark-allot"]);
   }
 
+  navigateQuestionPaper() {
+    this.router.navigate(["/admin/mark-allot/edit-mark"]);
+  }
+
     relativeDataFromDS() {
         this.service.getDataDS().subscribe((response: any) => {
           this.dataDS = response.classes;

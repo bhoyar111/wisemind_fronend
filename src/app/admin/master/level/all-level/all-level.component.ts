@@ -198,9 +198,9 @@ export class AllLevelComponent implements OnInit {
             this.filteredData = [...this.data];
             this.showAllData = true; // Set the flag to show all data
         } else {
-            this.filteredData = this.data.filter((item) =>item.level_name.toLowerCase()
-                .includes(this.searchTerm.toLowerCase()) || item.class.class_name.toLowerCase()
-                .includes(this.searchTerm.toLowerCase())
+            this.filteredData = this.data.filter((item) =>
+            item.level_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            item.class.class_name.toLowerCase().includes(this.searchTerm.toLowerCase())
             );
             this.showAllData = false; // Set the flag to show filtered data
         }

@@ -71,7 +71,7 @@
                                             <td class="tg-0pky">{{ item.first_name }} {{ item.middle_name }} {{ item.last_name }}</td>
                                             <td class="tg-0pky">{{ item.exam.class.class_name}}</td>
                                             <td class="tg-0pky">{{ item.exam.level.level_name}}</td>
-                                            <td class="tg-0pky">{{ item.exam.subject.subject_name}}</td>
+                                            <td class="tg-0pky"><a id="redirectLink" href="javascript:void(0);" (click)="navigateQuestionPaper()">{{ item.exam.subject.subject_name }}</a></td>
                                             <td class="tg-0pky">{{ item.exam.exam_name }}</td>
                                             <td class="tg-0pky">{{ item.exam.outoff }}</td>
                                             <td class="tg-0pky">

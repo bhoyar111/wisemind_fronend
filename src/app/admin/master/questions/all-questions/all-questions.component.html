@@ -45,46 +45,46 @@
                                 <table class="tg w-100">
                                     <thead>
                                         <tr>
-                                        <th class="tg-fymr">Sr.</th>
-                                        <th class="tg-fymr">Class</th>
-                                        <th class="tg-fymr">Subject</th>
-                                        <th class="tg-fymr">Exam Section</th>
-                                        <th class="tg-fymr">Question</th>
-                                        <th class="tg-fymr">Action</th>
+                                          <th class="tg-fymr">Sr.</th>
+                                          <th class="tg-fymr">Class</th>
+                                          <th class="tg-fymr">Subject</th>
+                                          <th class="tg-fymr">Exam Section</th>
+                                          <th class="tg-fymr">Question</th>
+                                          <th class="tg-fymr">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody [class.staff-hide]="shouldApplyStaffHideClass">
                                         <tr *ngFor="let item of data let i = index">
-                                        <td class="tg-0pky">{{ i+1 }}</td>
-                                        <td class="tg-0pky">{{ item.class.class_name }}</td>
-                                        <td class="tg-0pky">{{ item.subject.subject_name }}</td>
-                                        <td class="tg-0pky">{{ item.exam_section }}</td>
-                                        <td class="tg-0pky">{{ item.question_name }}</td>
-                                        <td class="tg-0pky" style="display: flex; align-items: center">
-                                            <button mat-icon-button class="tbl-action-btn">
-                                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'" (click)='editRow(item, i, editRecord)'></app-feather-icons>
-                                            </button>
-                                            <button mat-icon-button class="tbl-action-btn">
-                                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'" (click)="deleteRow(item)"></app-feather-icons>
-                                            </button>
-                                        </td>
+                                          <td class="tg-0pky">{{ i+1 }}</td>
+                                          <td class="tg-0pky">{{ item.class.class_name }}</td>
+                                          <td class="tg-0pky">{{ item.subject.subject_name }}</td>
+                                          <td class="tg-0pky">{{ item.exam_section }}</td>
+                                          <td class="tg-0pky">{{ item.question_name }}</td>
+                                          <td class="tg-0pky" style="display: flex; align-items: center">
+                                              <button mat-icon-button class="tbl-action-btn">
+                                                  <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'" (click)='editRow(item, i, editRecord)'></app-feather-icons>
+                                              </button>
+                                              <button mat-icon-button class="tbl-action-btn">
+                                                  <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'" (click)="deleteRow(item)"></app-feather-icons>
+                                              </button>
+                                          </td>
                                         </tr>
                                     </tbody>
                                     <tbody>
                                         <tr *ngFor="let item of examSectionFilter let i = index">
-                                        <td class="tg-0pky">{{ i+1 }}</td>
-                                        <td class="tg-0pky">{{ item.class.class_name }}</td>
-                                        <td class="tg-0pky">{{ item.subject.subject_name }}</td>
-                                        <td class="tg-0pky">{{ item.exam_section }}</td>
-                                        <td class="tg-0pky">{{ item.question_name }}</td>
-                                        <td class="tg-0pky" style="display: flex; align-items: center">
-                                            <button mat-icon-button class="tbl-action-btn">
-                                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'" (click)='editRow(item, i, editRecord)'></app-feather-icons>
-                                            </button>
-                                            <button mat-icon-button class="tbl-action-btn">
-                                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'" (click)="deleteRow(item)"></app-feather-icons>
-                                            </button>
-                                        </td>
+                                          <td class="tg-0pky">{{ i+1 }}</td>
+                                          <td class="tg-0pky">{{ item.class.class_name }}</td>
+                                          <td class="tg-0pky">{{ item.subject.subject_name }}</td>
+                                          <td class="tg-0pky">{{ item.exam_section }}</td>
+                                          <td class="tg-0pky">{{ item.question_name }}</td>
+                                          <td class="tg-0pky" style="display: flex; align-items: center">
+                                              <button mat-icon-button class="tbl-action-btn">
+                                                  <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'" (click)='editRow(item, i, editRecord)'></app-feather-icons>
+                                              </button>
+                                              <button mat-icon-button class="tbl-action-btn">
+                                                  <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'" (click)="deleteRow(item)"></app-feather-icons>
+                                              </button>
+                                          </td>
                                         </tr>
                                     </tbody>
                                 </table>
