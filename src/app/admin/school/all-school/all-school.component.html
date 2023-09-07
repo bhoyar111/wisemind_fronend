@@ -13,6 +13,15 @@
                       <li class="dropdown">
                         <h2><strong>School</strong></h2>
                       </li>
+                      <li class="search-section">
+                        <input
+                            type="text"
+                            class="browser-default search-field"
+                            placeholder="Search input here"
+                            [(ngModel)]="searchTerm"
+                            (input)="onSearchChange()"
+                        />
+                    </li>
                     </ul>
                     <ul class="header-buttons">
                       <li class="adding-button">
@@ -45,7 +54,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of data; let i = index">
+                    <tr *ngFor="let item of filteredData; let i = index">
                       <td class="tg-0pky">{{ i + 1 }}</td>
                       <td class="tg-0pky">{{ item.school_name }}</td>
                       <td class="tg-0pky">{{ item.address }}</td>

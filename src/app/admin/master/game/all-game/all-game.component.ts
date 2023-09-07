@@ -23,6 +23,9 @@ export class AllGameComponent implements OnInit {
     form: FormGroup;
     dataDS: any[];
     dataGameType= dataGameType;
+    searchTerm: string = "";
+    filteredData: any[] = [];
+    showAllData: boolean = true;
 
     constructor(
         private fb: UntypedFormBuilder,
@@ -57,6 +60,8 @@ export class AllGameComponent implements OnInit {
     fetchDataFromApis() {
         this.service.getData().subscribe((response: any) => {
             this.data = response.games;
+             // Load all data initially
+            this.filteredData = [...this.data];
         },
         (err) => {
             console.log(err, "listing api failed");
@@ -231,6 +236,20 @@ export class AllGameComponent implements OnInit {
         return array.filter(function (element) {
         return element.id != id;
         });
+    }
+
+    onSearchChange() {
+        if (!this.searchTerm.trim()) {
+            this.filteredData = [...this.data];
+            this.showAllData = true; // Set the flag to show all data
+        } else {
+            this.filteredData = this.data.filter((item) =>
+                item.game_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+                item.game_type.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+                item.subject.subject_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+            );
+            this.showAllData = false; // Set the flag to show filtered data
+        }
     }
 }
 export interface selectRowInterface {

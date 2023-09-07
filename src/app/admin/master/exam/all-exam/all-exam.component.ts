@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from "@angular/router";
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 import { ExamService } from "./exam.service"
@@ -27,14 +25,15 @@ export class AllExamComponent implements OnInit {
   dataSubjectDS: any[];
   filteredLevels: any[];
   filteredSubject: any[];
+  searchTerm: string = "";
+  filteredData: any[] = [];
+  showAllData: boolean = true;
 
   constructor(
-    private fb: UntypedFormBuilder,
-    private _snackBar: MatSnackBar,
-    private modalService: NgbModal,
-    private service: ExamService,
-    private router: Router,
-    private Arouter: ActivatedRoute
+      private fb: UntypedFormBuilder,
+      private _snackBar: MatSnackBar,
+      private modalService: NgbModal,
+      private service: ExamService
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +57,7 @@ export class AllExamComponent implements OnInit {
       outoff: ["", Validators.required]
     });
   }
+
   relativeDataFromDS() {
     this.service.getDataDS().subscribe((response: any) => {
       this.dataDS = response.classes;
@@ -83,6 +83,8 @@ export class AllExamComponent implements OnInit {
     this.service.getData().subscribe(
       (response: any) => {
         this.data = response.exams;
+        // Load all data initially
+        this.filteredData = [...this.data];
       },
       (err) => {
         console.log(err, "listing api failed");
@@ -223,11 +225,29 @@ export class AllExamComponent implements OnInit {
       panelClass: colorName
     });
   }
+
   arrayRemove(array, id) {
     return array.filter(function (element) {
       return element.id != id;
     });
   }
+
+  onSearchChange() {
+    if (!this.searchTerm.trim()) {
+        this.filteredData = [...this.data];
+        this.showAllData = true; // Set the flag to show all data
+    } else {
+        this.filteredData = this.data.filter((item) =>
+          item.exam_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          item.class.class_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          item.level.level_name.toLowerCase().includes(this.searchTerm.toLowerCase())  ||
+          item.subject.subject_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          item.outoff.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
+        this.showAllData = false; // Set the flag to show filtered data
+    }
+  }
+
 }
 
 export interface selectRowInterface {

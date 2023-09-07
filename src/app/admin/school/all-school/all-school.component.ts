@@ -28,6 +28,9 @@ export class AllSchoolComponent implements OnInit {
   data: any[];
   form: FormGroup;
   dataRoleDS: any[];
+  searchTerm: string = "";
+  filteredData: any[] = [];
+  showAllData: boolean = true;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -107,6 +110,8 @@ export class AllSchoolComponent implements OnInit {
     this.service.getData().subscribe(
       (response: any) => {
         this.data = response.schools;
+        // Load all data initially
+        this.filteredData = [...this.data];
       },
       (err) => {
         console.log(err, "listing api failed");
@@ -317,6 +322,24 @@ export class AllSchoolComponent implements OnInit {
       return element.id != id;
     });
   }
+
+  onSearchChange() {
+    if (!this.searchTerm.trim()) {
+      this.filteredData = [...this.data];
+      this.showAllData = true;
+    } else {
+      this.filteredData = this.data.filter((item) =>
+        item.school_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.address.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.city_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.affilition_no.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.email_id.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.mobile_no.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+      this.showAllData = false;
+    }
+  }
+
 }
 export interface selectRowInterface {
   sr: String;

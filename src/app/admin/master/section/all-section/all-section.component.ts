@@ -1,14 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router } from "@angular/router";
 import { FormGroup } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import {
-  UntypedFormGroup,
-  UntypedFormBuilder,
-  Validators,
-} from "@angular/forms";
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 import { SectionService } from "./section.service";
 @Component({
@@ -19,25 +13,26 @@ import { SectionService } from "./section.service";
 export class AllSectionComponent implements OnInit {
   selectedRowData: selectRowInterface;
   register: UntypedFormGroup;
-  addsection: UntypedFormGroup;
+  addForm: UntypedFormGroup;
   editForm: UntypedFormGroup;
   field: any;
   dataPipe: any;
   data: any[];
   form: FormGroup;
+  searchTerm: string = "";
+  filteredData: any[] = [];
+  showAllData: boolean = true;
 
   constructor(
     private fb: UntypedFormBuilder,
     private _snackBar: MatSnackBar,
     private modalService: NgbModal,
-    private service: SectionService,
-    private router: Router,
-    private Arouter: ActivatedRoute
+    private service: SectionService
   ) {}
 
   ngOnInit(): void {
     this.fetchDataFromApis();
-    this.addsection = this.fb.group({
+    this.addForm = this.fb.group({
       id: [""],
       section_name: ["", Validators.required]
     });
@@ -53,6 +48,8 @@ export class AllSectionComponent implements OnInit {
     this.service.getData().subscribe(
       (response: any) => {
         this.data = response.sections;
+        // Load all data initially
+        this.filteredData = [...this.data];
       },
       (err) => {
         console.log(err, "listing api failed");
@@ -62,21 +59,6 @@ export class AllSectionComponent implements OnInit {
 
   addRow(content) {
     this.modalService.open(content, { ariaLabelledBy: "modal-basic-title" });
-  }
-
-  aaonAddRowSave(form: UntypedFormGroup) {
-    this.field = {
-      section_name: form.value.section_name
-    };
-    this.service.addData(this.field).subscribe((res) => {
-      if (res.status !== "") {
-        this.showNotification("snackbar-success","Add successfully!","top","center");
-      }
-      form.reset();
-    });
-
-    this.modalService.dismissAll();
-    window.location.reload();
   }
 
   onAddRowSave(form: UntypedFormGroup) {
@@ -195,6 +177,19 @@ export class AllSectionComponent implements OnInit {
       return element.id != id;
     });
   }
+
+  onSearchChange() {
+    if (!this.searchTerm.trim()) {
+      this.filteredData = [...this.data];
+      this.showAllData = true;
+    } else {
+      this.filteredData = this.data.filter((item) =>
+        item.section_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+      this.showAllData = false;
+    }
+  }
+
 }
 export interface selectRowInterface {
   sr: String;

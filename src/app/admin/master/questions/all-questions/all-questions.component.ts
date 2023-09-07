@@ -27,6 +27,9 @@ export class AllQuestionsComponent implements OnInit {
     filteredSubject: any[];
     examSectionFilter: any[];
     dataExamSection= dataExamSection;
+    searchTerm: string = "";
+    filteredData: any[] = [];
+    showAllData: boolean = true;
 
     constructor(
         private fb: UntypedFormBuilder,
@@ -86,6 +89,8 @@ export class AllQuestionsComponent implements OnInit {
     fetchDataFromApis() {
         this.service.getData().subscribe((response: any) => {
             this.data = response.questions;
+            // Load all data initially
+            this.filteredData = [...this.data];
         },
         (err) => {
             console.log(err, "listing api failed");
@@ -264,6 +269,21 @@ export class AllQuestionsComponent implements OnInit {
         return element.id != id;
         });
     }
+
+    onSearchChange() {
+      if (!this.searchTerm.trim()) {
+          this.filteredData = [...this.data];
+          this.showAllData = true; // Set the flag to show all data
+      } else {
+          this.filteredData = this.data.filter((item) =>
+              item.class.class_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+              item.subject.subject_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+              item.exam_section.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+              item.question_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+          );
+          this.showAllData = false; // Set the flag to show filtered data
+      }
+  }
 }
 
 export interface selectRowInterface {

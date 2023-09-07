@@ -16,12 +16,15 @@ import { DesignationService } from "./designation.service"
 export class AllDesignationComponent implements OnInit {
   selectedRowData: selectRowInterface;
   register: UntypedFormGroup;
-  adddesignation: UntypedFormGroup;
+  addForm: UntypedFormGroup;
   editForm: UntypedFormGroup;
   field: any;
   dataPipe: any;
   data: any[];
   form: FormGroup;
+  searchTerm: string = "";
+  filteredData: any[] = [];
+  showAllData: boolean = true;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -34,7 +37,7 @@ export class AllDesignationComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDataFromApis();
-    this.adddesignation = this.fb.group({
+    this.addForm = this.fb.group({
       id: [""],
       designation_name: ["", Validators.required]
     });
@@ -49,6 +52,8 @@ export class AllDesignationComponent implements OnInit {
     this.service.getData().subscribe(
       (response: any) => {
         this.data = response.designations;
+         // Load all data initially
+         this.filteredData = [...this.data];
       },
       (err) => {
         console.log(err, "listing api failed");
@@ -178,6 +183,19 @@ export class AllDesignationComponent implements OnInit {
       return element.id != id;
     });
   }
+
+  onSearchChange() {
+    if (!this.searchTerm.trim()) {
+      this.filteredData = [...this.data];
+      this.showAllData = true;
+    } else {
+      this.filteredData = this.data.filter((item) =>
+        item.designation_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+      this.showAllData = false;
+    }
+  }
+
 }
 
 export interface selectRowInterface {

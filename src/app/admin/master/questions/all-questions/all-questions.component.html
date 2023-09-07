@@ -13,6 +13,15 @@
                                             <li class="dropdown">
                                                 <h2><strong>Question Paper</strong></h2>
                                             </li>
+                                            <li class="search-section">
+                                              <input
+                                                  type="text"
+                                                  class="browser-default search-field"
+                                                  placeholder="Search input here"
+                                                  [(ngModel)]="searchTerm"
+                                                  (input)="onSearchChange()"
+                                              />
+                                            </li>
                                         </ul>
                                         <form class="register-form" [formGroup]="addForm">
                                           <div class="row">
@@ -54,7 +63,7 @@
                                         </tr>
                                     </thead>
                                     <tbody [class.staff-hide]="shouldApplyStaffHideClass">
-                                        <tr *ngFor="let item of data let i = index">
+                                        <tr *ngFor="let item of filteredData let i = index">
                                           <td class="tg-0pky">{{ i+1 }}</td>
                                           <td class="tg-0pky">{{ item.class.class_name }}</td>
                                           <td class="tg-0pky">{{ item.subject.subject_name }}</td>

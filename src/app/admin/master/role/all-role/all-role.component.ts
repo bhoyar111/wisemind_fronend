@@ -23,6 +23,9 @@ export class AllRoleComponent implements OnInit {
     dataPipe:any;
     data: any[];
     form: FormGroup;
+    searchTerm: string = "";
+  filteredData: any[] = [];
+  showAllData: boolean = true;
 
     constructor(
         private fb: UntypedFormBuilder,
@@ -49,6 +52,8 @@ export class AllRoleComponent implements OnInit {
     fetchDataFromApis() {
         this.service.getData().subscribe((response: any) => {
             this.data = response.roles;
+            // Load all data initially
+            this.filteredData = [...this.data];
             },
             (err) => {
                 console.log(err, "listing api failed");
@@ -171,6 +176,18 @@ export class AllRoleComponent implements OnInit {
         return array.filter(function (element) {
             return element.id != id;
         });
+    }
+
+    onSearchChange() {
+      if (!this.searchTerm.trim()) {
+        this.filteredData = [...this.data];
+        this.showAllData = true;
+      } else {
+        this.filteredData = this.data.filter((item) =>
+          item.role_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
+        this.showAllData = false;
+      }
     }
 }
 

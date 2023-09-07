@@ -10,18 +10,23 @@
                 <div class="row">
                   <div class="col-12 heading-adding-button">
                     <ul class="header-buttons-left ml-0">
-                      <li class="dropdown">
-                        <h2><strong>Games</strong></h2>
-                      </li>
+                        <li class="dropdown">
+                            <h2><strong>Games</strong></h2>
+                        </li>
+                        <li class="search-section">
+                            <input
+                                type="text"
+                                class="browser-default search-field"
+                                placeholder="Search input here"
+                                [(ngModel)]="searchTerm"
+                                (input)="onSearchChange()"
+                            />
+                        </li>
                     </ul>
                     <ul class="header-buttons">
                       <li class="adding-button">
                         <div class="export-button m-l-10" matTooltip="ADD">
-                          <button
-                            mat-mini-fab
-                            color="primary"
-                            (click)="addRow(addRecord)"
-                          >
+                          <button mat-mini-fab color="primary" (click)="addRow(addRecord)">
                             <mat-icon class="col-white">add</mat-icon>
                           </button>
                         </div>
@@ -43,7 +48,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of data let i = index">
+                    <tr *ngFor="let item of filteredData; let i = index">
                       <td class="tg-0pky">{{ i+1 }}</td>
                       <td class="tg-0pky">{{ item.subject.subject_name }}</td>
                       <td class="tg-0pky">{{ item.game_type }}</td>
